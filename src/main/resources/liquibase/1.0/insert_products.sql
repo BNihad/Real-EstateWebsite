@@ -1,0 +1,8 @@
+insert into products (propertyname, price, currency, image,locationname,beds,baths) values ('California, USA', 1291000, '$', '/images/img_1.jpg','5232 California Fake, Ave. 21BC','3 beds','1 baths');
+insert into products (propertyname, price, currency, image,locationname,beds,baths) values ('Yasamal, Baku', 500000, '$', '/images/img_2.jpg','AZ0100 Yeni Yasamal District ','1 beds','2 baths');
+insert into products (propertyname, price, currency, image,locationname,beds,baths) values ('Port Baku, Icarishahar', 250000, '$', '/images/img_3.jpg','5232 California Fake, Ave. 21BC','1 beds','2 baths');
+insert into products (propertyname, price, currency, image,locationname,beds,baths) values ('California, USA', 1291000, '$', '/images/img_4.jpg','5232 California Fake, Ave. 21BC','1 beds','2 baths');
+insert into products (propertyname, price, currency, image,locationname,beds,baths) values ('California, USA', 1291000, '$', '/images/img_5.jpg','5232 California Fake, Ave. 21BC','1 beds','2 baths');
+insert into products (propertyname, price, currency, image,locationname,beds,baths) values ('California, USA', 1291000, '$', '/images/img_6.jpg','5232 California Fake, Ave. 21BC','1 beds','2 baths');
+insert into products (propertyname, price, currency, image,locationname,beds,baths) values ('California, USA', 1291000, '$', '/images/img_7.jpg','5232 California Fake, Ave. 21BC','1 beds','2 baths');
+insert into products (propertyname, price, currency, image,locationname,beds,baths) values ('California, USA', 1291000, '$', '/images/img_8.jpg','5232 California Fake, Ave. 21BC','1 beds','2 baths');
