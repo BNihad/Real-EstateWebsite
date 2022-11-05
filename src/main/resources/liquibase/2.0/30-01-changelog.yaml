@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: properties table create
+      author: nihad
+      changes:
+        - createTable:
+            tableName: properties
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: property_name
+                  type: varchar
+              - column:
+                  name: price
+                  type: varchar
+              - column:
+                  name: currency
+                  type: varchar
+              - column:
+                  name: property_image
+                  type: varchar
+              - column:
+                  name: property_image2
+                  type: varchar
+              - column:
+                  name: property_image3
+                  type: varchar
+              - column:
+                  name: property_location
+                  type: varchar
+              - column:
+                 name: beds
+                 type: varchar
+              - column:
+                  name: baths
+                  type: varchar
+              - column:
+                  name: description
+                  type: varchar
+              - column:
+                  name: property_id
+                  type: varchar
+              - column:
+                  name: property_type
+                  type: varchar
+              - column:
+                  name: area
+                  type: varchar
+              - column:
+                  name: garage
+                  type: varchar
+
+
+
+

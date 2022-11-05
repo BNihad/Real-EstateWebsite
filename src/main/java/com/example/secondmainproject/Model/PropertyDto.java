@@ -10,12 +10,20 @@ import lombok.NoArgsConstructor;
 public class PropertyDto {
 
     private Integer id;
-    private String propertyname;
-    private String locationname;
-    private String beds;
-    private String baths;
+    private String property_name;
     private String price;
     private String currency;
-    private String image;
+    private String property_image;
+    private String property_image2;
+    private String property_image3;
+    private String property_location;
+    private String beds;
+    private String baths;
+    private String description;
+    private String property_id;
+    private String property_type;
+    private String area;
+    private String garage;
+
 
 }

@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="css/style.css" />
 
     <title>
-      Property &mdash; Free Bootstrap 5 Website Template by Untree.co
+      Investology
     </title>
   </head>
   <body>
@@ -47,12 +47,12 @@
       <div class="container">
         <div class="menu-bg-wrap">
           <div class="site-navigation">
-            <a th:href="@{/mainMenu}" class="logo m-0 float-start">Property</a>
+            <a th:href="@{/main}" class="logo m-0 float-start">Investology</a>
 
             <ul
               class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
             >
-              <li><a href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/index}">Home</a></li>
               <li class="has-children active">
                 <a href="properties.html">Properties</a>
                 <ul class="dropdown">
@@ -130,16 +130,16 @@
               <div class="property-slider">
                 <div class="property-item" th:each="properties : ${property}">
                   <a href="property-single.html" class="img">
-                    <img th:src="${properties.image}" alt="Image" class="img-fluid" />
+                    <img th:src="${properties.property_image}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
                     <div class="price mb-2"><span th:text="${properties.currency + properties.price}"></span></div>
                     <div>
-                      <span class="d-block mb-2 text-black-50" th:text="${properties.locationname}"
+                      <span class="d-block mb-2 text-black-50" th:text="${properties.property_location}"
                         ></span
                       >
-                      <span class="city d-block mb-3" th:text="${properties.propertyname}"></span>
+                      <span class="city d-block mb-3" th:text="${properties.property_name}"></span>
 
                       <div class="specs d-flex mb-4">
                         <span class="d-block d-flex align-items-center me-3">
@@ -153,7 +153,7 @@
                       </div>
 
                       <a
-                        href="property-single.html"
+                        th:href="@{/propertySingle}"
                         class="btn btn-primary py-2 px-3"
                         >See details</a
                       >
@@ -197,16 +197,16 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" th:each="properties : ${property}">
             <div class="property-item mb-30">
               <a href="property-single.html" class="img">
-                <img th:src="${properties.image}" alt="Image" class="img-fluid" />
+                <img th:src="${properties.property_image}" alt="Image" class="img-fluid" />
               </a>
 
               <div class="property-content">
                 <div class="price mb-2"><span th:text="${properties.currency + properties.price}"></span></div>
                 <div>
-                  <span class="d-block mb-2 text-black-50" th:text="${properties.locationname}"
+                  <span class="d-block mb-2 text-black-50" th:text="${properties.property_location}"
                     ></span
                   >
-                  <span class="city d-block mb-3" th:text="${properties.propertyname}"></span>
+                  <span class="city d-block mb-3" th:text="${properties.property_name}"></span>
 
                   <div class="specs d-flex mb-4">
                     <span class="d-block d-flex align-items-center me-3">

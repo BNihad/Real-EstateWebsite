@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: amenities table create
+      author: nihad
+      changes:
+        - createTable:
+            tableName: amenities
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: balcony
+                  type: varchar
+              - column:
+                  name: outdoor_kitchen
+                  type: varchar
+              - column:
+                  name: cable_tv
+                  type: varchar
+              - column:
+                  name: deck
+                  type: varchar
+              - column:
+                  name: tennis_court
+                  type: varchar
+              - column:
+                  name: internet
+                  type: varchar
+              - column:
+                  name: parking
+                  type: varchar
+              - column:
+                  name: sun_room
+                  type: varchar
+              - column:
+                  name: concrete_flooring
+                  type: varchar
+
+

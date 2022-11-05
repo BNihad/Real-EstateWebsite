@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/main")
+@RequestMapping
 public class MainController {
     private final PropertyService propertyService;
 
@@ -15,16 +15,20 @@ public class MainController {
         this.propertyService = propertyService;
     }
 
-    @GetMapping
-    public String getProperties (Model model){
+    @GetMapping("/properties")
+    public String properties (Model model){
         model.addAttribute("property",propertyService.getAllProperties());
 
         return "properties";
     }
-    @GetMapping("/mainMenu")
+    @GetMapping("/index")
     public String mainMenu(Model model){
-
-        return "redirect:index";
-
+        model.addAttribute("property",propertyService.getAllProperties());
+        return "index";
+    }
+    @GetMapping("/propertySingle")
+    public String propertySingle(Model model) {
+        model.addAttribute("property",propertyService.getAllProperties());
+        return "property-single";
     }
 }

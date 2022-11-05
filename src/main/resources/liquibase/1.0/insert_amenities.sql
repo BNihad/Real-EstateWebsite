@@ -1,0 +1,1 @@
+insert into amenities (balcony,outdoor_kitchen,cable_tv,deck,tennis_court,internet,parking,sun_room,concrete_flooring) values ('Balcony','Outdoor kitchen','Cable Tv','Deck','Tennis Court','Internet','Parking','Sun Room','Concrete Flooring')
