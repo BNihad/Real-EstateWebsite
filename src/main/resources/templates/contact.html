@@ -5,13 +5,15 @@
 * License: https://creativecommons.org/licenses/by/3.0/
 */ -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Untree.co" />
     <link rel="shortcut icon" href="favicon.png" />
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap5" />
 
@@ -30,7 +32,7 @@
     <link rel="stylesheet" href="css/style.css" />
 
     <title>
-      Property &mdash; Free Bootstrap 5 Website Template by Untree.co
+      Investology
     </title>
   </head>
   <body>
@@ -47,12 +49,12 @@
       <div class="container">
         <div class="menu-bg-wrap">
           <div class="site-navigation">
-            <a href="index.html" class="logo m-0 float-start">Property</a>
+            <a th:href="@{/index}" class="logo m-0 float-start">Investology</a>
 
             <ul
               class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
             >
-              <li><a href="index.html">Home</a></li>
+              <li><a th:href="@{/index}">Home</a></li>
               <li class="has-children">
                 <a href="properties.html">Properties</a>
                 <ul class="dropdown">
@@ -159,7 +161,8 @@
             <form action="#">
               <div class="row">
                 <div class="col-6 mb-3">
-                  <input
+                  <input id="name"
+                         name="name"
                     type="text"
                     class="form-control"
                     placeholder="Your Name"
@@ -167,6 +170,8 @@
                 </div>
                 <div class="col-6 mb-3">
                   <input
+                          id="email"
+                          name="email"
                     type="email"
                     class="form-control"
                     placeholder="Your Email"
@@ -174,6 +179,8 @@
                 </div>
                 <div class="col-12 mb-3">
                   <input
+                          id="subject"
+                          name="subject"
                     type="text"
                     class="form-control"
                     placeholder="Subject"
@@ -181,8 +188,8 @@
                 </div>
                 <div class="col-12 mb-3">
                   <textarea
-                    name=""
-                    id=""
+                    name="message"
+                    id="message"
                     cols="30"
                     rows="7"
                     class="form-control"
@@ -192,6 +199,7 @@
 
                 <div class="col-12">
                   <input
+                          id="sendMessageButton"
                     type="submit"
                     value="Send Message"
                     class="btn btn-primary"
@@ -325,5 +333,47 @@
     <script src="js/navbar.js"></script>
     <script src="js/counter.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+      // alert("helloooo")
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+
+      gtag('config', 'UA-23581568-13');
+
+      $(document).ready(function () {
+        $('#sendMessageButton').click(function () {
+          let name = $('#name').val()
+          let email = $('#email').val()
+          let subject = $('#subject').val()
+          let message = $('#message').val()
+
+          var data = {}
+          data.name = name
+          data.email = email
+          data.subject = subject
+          data.message = message
+
+
+          console.log(data)
+          $.ajax(
+                  {
+                    url: '/contact/',
+                    type: 'POST', // http method
+                    data: JSON.stringify(data),  // data to submit
+                    dataType: 'json',
+                    contentType: "application/json"
+
+                  });
+          alert("Your message was sent!");
+        });
+
+      })
+
+    </script>
   </body>
 </html>

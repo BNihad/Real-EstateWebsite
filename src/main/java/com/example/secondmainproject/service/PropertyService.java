@@ -24,4 +24,24 @@ public class PropertyService {
         return propertyEntityList.parallelStream().
                 map(propertyEntity-> PropertyMapper.INSTANCE.mapToDto(propertyEntity)).toList();
     }
+
+
+    public PropertyEntity findById (Integer id){
+
+        return propertyRepository.findById(id).get();
+    }
+
+
+
+
+
+
+
+
+//    public List<PropertyEntity> getByKeyword(String keyword){
+//        if (keyword != null) {
+//            return propertyRepository.findByKeyword(keyword);
+//        }
+//        return (List<PropertyEntity>) propertyRepository.findAll();
+//    }
 }

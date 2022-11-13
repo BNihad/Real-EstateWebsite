@@ -7,10 +7,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="author" content="Untree.co"/>
-    <link rel="shortcut icon" href="favicon.png"/>
+    <link rel="shortcut icon" href="/favicon.png"/>
 
     <meta name="description" content=""/>
     <meta name="keywords" content="bootstrap, bootstrap5"/>
@@ -79,7 +80,7 @@
                         data-toggle="collapse"
                         data-target="#main-navbar"
                 >
-                    <span></span>
+                    <span>sefsfesf</span>
                 </a>
             </div>
         </div>
@@ -88,13 +89,12 @@
 
 <div
         class="hero page-inner overlay"
-        style="background-image: url('images/hero_bg_3.jpg')"
+        style="background-image: url('/images/hero_bg_3.jpg')"
 >
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-9 text-center mt-5">
-                <h1 class="heading" data-aos="fade-up">
-                    5232 California AVE. 21BC
+                <h1 class="heading" data-aos="fade-up" th:text="${propertySingle.getProperty_location()}" >
                 </h1>
 
                 <nav
@@ -103,15 +103,14 @@
                         data-aos-delay="200"
                 >
                     <ol class="breadcrumb text-center justify-content-center">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
                         <li class="breadcrumb-item">
-                            <a href="properties.html">Properties</a>
+                            <a th:href="@{/properties}">Properties</a>
                         </li>
                         <li
                                 class="breadcrumb-item active text-white-50"
-                                aria-current="page"
+                                aria-current="page" th:text="${propertySingle.getProperty_location()}"
                         >
-                            5232 California AVE. 21BC
                         </li>
                     </ol>
                 </nav>
@@ -126,16 +125,17 @@
             <div class="col-lg-7">
                 <div class="img-property-slide-wrap">
                     <div class="img-property-slide">
-                        <img src="images/img_1.jpg" alt="Image" class="img-fluid"/>
-                        <img src="images/img_2.jpg" alt="Image" class="img-fluid"/>
-                        <img src="images/img_3.jpg" alt="Image" class="img-fluid"/>
+                        <img th:src="${propertySingle.getProperty_image()}" alt="Image" class="img-fluid"/>
+                        <img th:src="${propertySingle.getProperty_image2()}"alt="Image" class="img-fluid"/>
+                        <img th:src="${propertySingle.getProperty_image3()}" alt="Image" class="img-fluid"/>
 
                     </div>
                 </div>
+
                 <div class="property-summary" style="font-size: medium">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="title-box-d section-t4">
+                            <div class="title-box-d section-t4" style="padding-bottom: 5px">
                                 <h3 class="title-d">Quick Summary</h3>
                             </div>
                         </div>
@@ -180,84 +180,132 @@
                     </div>
                     <div class="row section-t3">
                         <div class="col-sm-12">
-                            <div class="title-box-d">
+                            <div class="title-box-d" style="padding-bottom: 5px">
                                 <h3 class="title-d">Amenities</h3>
                             </div>
                         </div>
                     </div>
                     <div class="amenities-list color-text-a" style="font-size: medium">
-                        <ul class="list-a no-margin" style="font-size: medium" th:each="properties : ${property}">
-                            <li th:text="${properties.property_location}"></li>
+                        <ul class="list-a no-margin" style="font-size: medium">
+                            <li th:text="${propertySingle.beds}"></li>
                         </ul>
                     </div>
                 </div>
 
+                <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
+                    <div class="col-sm-12">
+                        <div class="title-box-d" style="padding-bottom: 10px">
+                            <h3 class="title-d">Location</h3>
+                        </div>
+                    </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3178.5480484912305!2d-120.49157668441921!3d37.1872102535176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb9519dfb779c6aea!2zMzfCsDExJzEzLjkiTiAxMjDCsDI5JzIxLjgiVw!5e0!3m2!1sen!2s!4v1668084032851!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
 
             </div>
             <div class="col-lg-4">
 
-                <h2 class="heading text-primary">5232 California Ave. 21BC</h2>
-                <p class="meta" style="font-size: medium">California, United States</p>
-                <p class="text-black-50" style="font-size: medium">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
-                    laborum quo quos omnis sed magnam id, ducimus saepe, debitis error
-                    earum, iste dicta odio est sint dolorem magni animi tenetur.
-                </p>
-                <p class="text-black-50" style="font-size: medium">
-                    Perferendis eligendi reprehenderit, assumenda molestias nisi eius
-                    iste reiciendis porro tenetur in, repudiandae amet libero.
-                    Doloremque, reprehenderit cupiditate error laudantium qui, esse
-                    quam debitis, eum cumque perferendis, illum harum expedita.
+                <h2 class="heading text-primary" th:text="${propertySingle.property_location}"></h2>
+                <p class="meta" style="font-size: medium" th:text="${propertySingle.property_name}"></p>
+                <p class="text-black-50" style="font-size: medium" th:text="${propertySingle.description}">
 
                 </p>
+
                 <div class="ctaContainer" style="padding-top: 10px">
                     <div class="property-price d-flex  foo" style="font-size: larger">
                         <h2 class="scheduleTourContactTitle">Price:&nbsp </h2>
                         <span> </span>
                         <div class="card-header-c d-flex" style="font-size: larger">
                             <div class="card-box-ico">
-                                <span class="bi bi-cash">$</span>
+                                <span class="bi bi-cash" ></span>
                             </div>
                             <div class="card-title-c" style="font-size: x-large">
-                                <h2 class="title-c" STYLE="padding-bottom: initial">1500000</h2>
+                                <h2 class="title-c" STYLE="padding-bottom: initial" th:text="${propertySingle.price}"></h2>
                             </div>
                         </div>
                     </div>
                     <link rel="stylesheet"
                           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                    <style>
-                        .checked {
-                            size: auto;
-                            color: orange;
-                        }
-                    </style>
-                    </head>
-                    <body>
 
 
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
+                    <button class="sendMessageBtn js-checkAvailability stickyContactRightRail btn btn-md btn-secondary" style="margin-left: auto">
+                        Buy Now
+                    </button>
 
 
                     <aside id="contactLead" class="mortar-wrapper rightRailScheduleTourContactSection"
                            style="position: absolute;padding-top: 45px">
-
                         <h2 style="padding-bottom: 15px" class="scheduleTourContactTitle">Contact This Property</h2>
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="form-holder" style="margin-left: auto">
+                                    <div class="form-content">
+                                        <div class="form-items">
+                                            <H5>Fill in the data below.</H5>
+                                            <form class="requires-validation" novalidate>
 
-                        <button class="requestTourBtn js-checkAvailabilityModified stickyContactRightRail btn btn-md btn-secondary">
-                            Request Tour
-                        </button>
-                        <button class="sendMessageBtn js-checkAvailability stickyContactRightRail btn btn-md btn-secondary">
-                            Buy Now
-                        </button>
+                                                <div class="col-md-12">
+                                                   <strong>First Name</strong>
+                                                    <input class="form-control" type="text" name="name" placeholder="Enter your first name">
 
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <strong>Last Name</strong>
+                                                    <input class="form-control" type="text" name="name" placeholder="Enter your last name">
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <strong>Last Name</strong>
+                                                    <input class="form-control" type="number" name="phone-number" placeholder="Enter your phone number">
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <strong>Email Address</strong>
+                                                    <input class="form-control" type="email" name="email" placeholder="Enter your e-mail address" required>
+                                                    <div class="valid-feedback">Email field is valid!</div>
+                                                    <div class="invalid-feedback">Email field cannot be blank!</div>
+                                                </div>
+                                                <p>Date: <input class="input-group date" type="date" id="datepicker"></p>
+
+                                                <div class="col-md-12">
+                                                    <strong>Time</strong>
+                                                    <select class="form-select mt-3" required>
+                                                        <option selected disabled value="">Select Time</option>
+                                                        <option value="jweb">Morning</option>
+                                                        <option value="sweb">Lunch</option>
+                                                        <option value="pmanager">Afternoon</option>
+                                                        <option value="pmanager">Evening</option>
+                                                    </select>
+                                                    <div class="valid-feedback">You selected a time!</div>
+                                                    <div class="invalid-feedback">Please select a time!</div>
+                                                </div>
+
+                                                <div class="col-md-12 mt-3">
+                                                    <label class="mb-3 mr-1" for="submit" style="font-size: 18px">Schedule a showing:</label>
+
+                                                    <input type="checkbox" class="btn-check" name="person" id="person" autocomplete="off" required>
+                                                    <label style="margin-right: 5px" class="btn btn-sm btn-outline-secondary" for="person">In Person</label>
+
+                                                    <input type="checkbox" class="btn-check" name="virtual" id="virtual" autocomplete="off" required>
+                                                    <label class="btn btn-sm btn-outline-secondary" for="virtual">Virtual</label>
+
+                                                </div>
+
+                                                <div class="form-button mt-3">
+                                                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                                                    <div class="valid-feedback">You selected a submit!</div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="d-block agent-box p-5 " style="margin-top: 5px;margin-left:auto">
                             <div class="img mb-4 justify-content-center">
                                 <img
-                                        src="images/person_2-min.jpg"
+                                        src="/images/person_2-min.jpg"
                                         alt="Image"
                                         class="img-fluid"
                                         img>
@@ -285,6 +333,7 @@
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
                     </aside>
                </div>
@@ -408,11 +457,11 @@
     </div>
 </div>
 
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/tiny-slider.js"></script>
-<script src="js/aos.js"></script>
-<script src="js/navbar.js"></script>
-<script src="js/counter.js"></script>
-<script src="js/custom.js"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/tiny-slider.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/counter.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 </body>
 </html>
