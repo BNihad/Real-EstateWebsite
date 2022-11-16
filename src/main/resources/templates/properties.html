@@ -7,6 +7,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Untree.co" />
@@ -47,14 +52,14 @@
       <div class="container">
         <div class="menu-bg-wrap">
           <div class="site-navigation">
-            <a th:href="@{/main}" class="logo m-0 float-start">Investology</a>
+            <a th:href="@{/index}" class="logo m-0 float-start">Investology</a>
 
             <ul
               class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
             >
               <li class="nav-item"><a class="nav-link" th:href="@{/index}">Home</a></li>
               <li class="has-children active">
-                <a href="properties.html">Properties</a>
+                <a th:href="@{/properties}">Properties</a>
                 <ul class="dropdown">
                   <li><a href="#">Buy Property</a></li>
                   <li><a href="#">Sell Property</a></li>
@@ -70,7 +75,7 @@
               </li>
               <li><a href="services.html">Services</a></li>
               <li><a href="about.html">About</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
+              <li><a th:href="@{/contact}">Contact Us</a></li>
             </ul>
 
             <a
@@ -101,7 +106,7 @@
               data-aos-delay="200"
             >
               <ol class="breadcrumb text-center justify-content-center">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
                 <li
                   class="breadcrumb-item active text-white-50"
                   aria-current="page"
@@ -110,10 +115,40 @@
                 </li>
               </ol>
             </nav>
+
+            <div class="container">
+              <div class="row justify-content-center align-items-center">
+                <div class="col-lg-9 text-center">
+                  <form
+                          method="get"
+                          class="narrow-w form-search d-flex align-items-stretch mb-3"
+                          data-aos="fade-up"
+                          data-aos-delay="200"
+                  >
+                    <input
+                            id="search-input"
+                            type="text"
+                            class="form-control px-4"
+                            placeholder="Your ZIP code or City. e.g. New York"
+                    />
+                    <button type="submit" class="btn btn-info">Search</button>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
+
+
 
     <div class="section">
       <div class="container">
@@ -124,12 +159,92 @@
             </h2>
           </div>
         </div>
+        <div class="section section-properties">
+          <div class="container">
+            <div class="row">
+              <!--Google map-->
+
+              <!--          <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">-->
+              <!--            <iframe  src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed"  frameborder="0"-->
+              <!--                    style="border:0" allowfullscreen></iframe>-->
+
+<!--                          <style>-->
+<!--                            .map-container{-->
+<!--                              overflow:hidden;-->
+<!--                              padding-bottom:56.25%;-->
+<!--                              position:relative;-->
+<!--                              height:0;-->
+<!--                            }-->
+<!--                            .map-container iframe{-->
+<!--                              left:0;-->
+<!--                              top:0;-->
+<!--                              height:100%;-->
+<!--                              width:100%;-->
+<!--                              position:absolute;-->
+<!--                            }-->
+<!--                          </style>-->
+              <!--          </div>-->
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" th:each="properties : ${property}" id="propertiesAll" style="padding-top: 25px">
+                <div class="property-item mb-30">
+                  <a th:href="@{/propertySingle/{id}(id=${properties.id})}" class="img">
+                    <img th:src="${properties.property_image}" alt="Image" class="img-fluid" />
+                  </a>
+
+                  <div class="property-content">
+                    <div class="price mb-2"><span th:text="${properties.currency + properties.price}"></span></div>
+                    <div>
+                  <span class="d-block mb-2 text-black-50" th:text="${properties.property_location}"
+                  ></span
+                  >
+                      <span class="city d-block mb-3" th:text="${properties.property_name}"></span>
+
+                      <div class="specs d-flex mb-4">
+                    <span class="d-block d-flex align-items-center me-3">
+                      <span class="icon-bed me-2"></span>
+                      <span class="caption" th:text="${properties.beds}"></span>
+                    </span>
+                        <span class="d-block d-flex align-items-center">
+                      <span class="icon-bath me-2"></span>
+                      <span class="caption" th:text="${properties.baths}"></span>
+                    </span>
+                      </div>
+
+                      <a th:href="@{/propertySingle/{id}(id=${properties.id})}"
+                         class="btn btn-primary py-2 px-3"
+                      >See details</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- .item -->
+
+                <!-- .item -->
+              </div>
+
+            </div>
+            <div class="row align-items-center py-5">
+              <div class="col-lg-3">Pagination (1 of 10)</div>
+              <div class="col-lg-6 text-center">
+                <div class="custom-pagination">
+                  <a href="#">1</a>
+                  <a href="#" class="active">2</a>
+                  <a href="#">3</a>
+                  <a href="#">4</a>
+                  <a href="#">5</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
         <div class="row">
           <div class="col-12">
             <div class="property-slider-wrap">
               <div class="property-slider">
                 <div class="property-item" th:each="properties : ${property}">
-                  <a href="property-single.html" class="img">
+                  <a  th:href="@{/propertySingle/{id}(id=${properties.id})}" class="img">
                     <img th:src="${properties.property_image}" alt="Image" class="img-fluid" />
                   </a>
 
@@ -152,8 +267,7 @@
                         </span>
                       </div>
 
-                      <a
-                        th:href="@{/propertySingle}"
+                      <a th:href="@{/propertySingle/{id}(id=${properties.id})}"
                         class="btn btn-primary py-2 px-3"
                         >See details</a
                       >
@@ -190,61 +304,8 @@
         </div>
       </div>
     </div>
+    
 
-    <div class="section section-properties">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" th:each="properties : ${property}">
-            <div class="property-item mb-30">
-              <a href="property-single.html" class="img">
-                <img th:src="${properties.property_image}" alt="Image" class="img-fluid" />
-              </a>
-
-              <div class="property-content">
-                <div class="price mb-2"><span th:text="${properties.currency + properties.price}"></span></div>
-                <div>
-                  <span class="d-block mb-2 text-black-50" th:text="${properties.property_location}"
-                    ></span
-                  >
-                  <span class="city d-block mb-3" th:text="${properties.property_name}"></span>
-
-                  <div class="specs d-flex mb-4">
-                    <span class="d-block d-flex align-items-center me-3">
-                      <span class="icon-bed me-2"></span>
-                      <span class="caption" th:text="${properties.beds}"></span>
-                    </span>
-                    <span class="d-block d-flex align-items-center">
-                      <span class="icon-bath me-2"></span>
-                      <span class="caption" th:text="${properties.baths}"></span>
-                    </span>
-                  </div>
-
-                  <a th:href="@{/propertySingle/{id}(id=${properties.id})}"
-                    class="btn btn-primary py-2 px-3"
-                    >See details</a
-                  >
-                </div>
-              </div>
-            </div>
-            <!-- .item -->
-
-            <!-- .item -->
-          </div>
-        </div>
-        <div class="row align-items-center py-5">
-          <div class="col-lg-3">Pagination (1 of 10)</div>
-          <div class="col-lg-6 text-center">
-            <div class="custom-pagination">
-              <a href="#">1</a>
-              <a href="#" class="active">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="site-footer">
       <div class="container">
@@ -360,11 +421,34 @@
       </div>
     </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/navbar.js"></script>
-    <script src="js/counter.js"></script>
-    <script src="js/custom.js"></script>
+
+
+    <script>
+      document.querySelector('#search-input').
+      addEventListener('input',filterList)
+      function filterList(){
+        const searchInput = document.querySelector('#search-input');
+        const filter = searchInput.value.toLowerCase();
+        const listItems = document.querySelectorAll('#propertiesAll');
+
+        listItems.forEach((item) =>{
+                  let text = item.textContent;
+                  if(text.toLowerCase().includes(filter.toLowerCase())){
+                    item.style.display = '';
+                  }
+                  else {
+                    item.style.display = 'none';
+                  }
+                }
+        );
+      }
+    </script>
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/tiny-slider.js}"></script>
+    <script th:src="@{/js/aos.js}"></script>
+    <script th:src="@{/js/navbar.js}"></script>
+    <script th:src="@{/js/counter.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
   </body>
 </html>

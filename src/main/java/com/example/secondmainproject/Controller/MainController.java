@@ -2,6 +2,7 @@ package com.example.secondmainproject.Controller;
 
 import com.example.secondmainproject.service.PropertyService;
 import org.springframework.core.NestedCheckedException;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,5 +44,12 @@ public class MainController {
         return "contact";
 
     }
+
+//    @GetMapping("/properties/{property_name}")
+//    public String getProperty_name (@PathVariable String property_name, Model model){
+//        model.addAttribute("getByName",propertyService.getAllPropertiesByName(property_name));
+//
+//        return "properties";
+//    }
 
 }

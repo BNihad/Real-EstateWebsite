@@ -191,15 +191,32 @@
                         </ul>
                     </div>
                 </div>
-
+                <div class="title-box-d" style="padding-bottom: 10px">
+                    <h3 class="title-d">Location</h3>
+                </div>
                 <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
+
                     <div class="col-sm-12">
-                        <div class="title-box-d" style="padding-bottom: 10px">
-                            <h3 class="title-d">Location</h3>
-                        </div>
+
+
                     </div>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3178.5480484912305!2d-120.49157668441921!3d37.1872102535176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb9519dfb779c6aea!2zMzfCsDExJzEzLjkiTiAxMjDCsDI5JzIxLjgiVw!5e0!3m2!1sen!2s!4v1668084032851!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
+                    <style>
+                        .map-container{
+                            overflow:hidden;
+                            padding-bottom:56.25%;
+                            position:relative;
+                            height:0;
+                        }
+                        .map-container iframe{
+                            left:0;
+                            top:0;
+                            height:100%;
+                            width:100%;
+                            position:absolute;
+                        }
+                    </style>
+               </div>
 
             </div>
             <div class="col-lg-4">
@@ -216,7 +233,7 @@
                         <span> </span>
                         <div class="card-header-c d-flex" style="font-size: larger">
                             <div class="card-box-ico">
-                                <span class="bi bi-cash" ></span>
+                                <span class="bi bi-cash" th:text="${propertySingle.currency}"></span>
                             </div>
                             <div class="card-title-c" style="font-size: x-large">
                                 <h2 class="title-c" STYLE="padding-bottom: initial" th:text="${propertySingle.price}"></h2>

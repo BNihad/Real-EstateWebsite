@@ -49,14 +49,14 @@
       <div class="container">
         <div class="menu-bg-wrap">
           <div class="site-navigation">
-            <a th:href="@{/mainMenu}" class="logo m-0 float-start">Investology</a>
+            <a th:href="@{/index}" class="logo m-0 float-start">Investology</a>
 
             <ul
               class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
             >
-              <li class="active"><a href="index.html">Home</a></li>
+              <li class="active"><a th:href="@{/index}">Home</a></li>
               <li class="has-children">
-                <a href="properties.html">Properties</a>
+                <a th:href="@{/properties}">Properties</a>
                 <ul class="dropdown">
                   <li><a href="#">Buy Property</a></li>
                   <li><a href="#">Sell Property</a></li>
@@ -111,6 +111,7 @@
               Easiest way to find your dream home
             </h1>
             <form
+                    th:action="@{/properties}"
              method="get"
               class="narrow-w form-search d-flex align-items-stretch mb-3"
               data-aos="fade-up"
@@ -122,7 +123,7 @@
                 class="form-control px-4"
                 placeholder="Your ZIP code or City. e.g. New York"
               />
-              <button type="submit" class="btn btn-info">Search</button>
+              <button type="submit" class="btn btn-info" id="submitb">Search</button>
             </form>
           </div>
         </div>
@@ -144,6 +145,25 @@
       else {
         item.style.display = 'none';
       }
+            }
+    );
+  }
+
+  document.querySelector('#submit').
+  addEventListener('submit',filterList)
+  function filterList(){
+    const searchInput = document.querySelector('#submit');
+    const filter = searchInput.value.toLowerCase();
+    const listItems = document.querySelectorAll('#propertiesAll');
+
+    listItems.forEach((item) =>{
+              let text = item.textContent;
+              if(text.toLowerCase().includes(filter.toLowerCase())){
+                item.style.display = '';
+              }
+              else {
+                item.style.display = 'none';
+              }
             }
     );
   }
@@ -173,7 +193,7 @@
               <div class="property-slider">
                 <div class="property-item" th:each="properties : ${property}" id="propertiesAll">
 
-                  <a href="property-single.html" class="img">
+                  <a th:href="@{/propertySingle/{id}(id=${properties.id})}" class="img">
                     <img th:src="${properties.property_image}" alt="Image" class="img-fluid" />
                   </a>
 
@@ -784,12 +804,12 @@
       </div>
     </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/navbar.js"></script>
-    <script src="js/counter.js"></script>
-    <script src="js/custom.js"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/tiny-slider.js}"></script>
+    <script th:src="@{/js/aos.js}"></script>
+    <script th:src="@{/js/navbar.js}"></script>
+    <script th:src="@{/js/counter.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
 
   </body>
 </html>

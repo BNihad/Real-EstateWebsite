@@ -4,11 +4,13 @@ import com.example.secondmainproject.Dao.Entity.PropertyEntity;
 import com.example.secondmainproject.Dao.PropertyRepository.PropertyRepository;
 import com.example.secondmainproject.Mapper.PropertyMapper;
 import com.example.secondmainproject.Model.PropertyDto;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+
 public class PropertyService {
 
    private final PropertyRepository propertyRepository;
@@ -31,6 +33,15 @@ public class PropertyService {
         return propertyRepository.findById(id).get();
     }
 
+
+
+
+//    public List<PropertyEntity> getAllPropertiesByName(String property_name){
+//
+//
+//
+//        return propertyRepository.findByProperty_name(property_name);
+//    }
 
 
 
