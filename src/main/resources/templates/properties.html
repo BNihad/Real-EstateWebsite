@@ -1,11 +1,6 @@
-<!-- /*
-* Template Name: Property
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
   <head>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
@@ -27,12 +22,12 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="fonts/icomoon/style.css" />
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}" />
+    <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}" />
 
-    <link rel="stylesheet" href="css/tiny-slider.css" />
-    <link rel="stylesheet" href="css/aos.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" th:href="@{/css/tiny-slider.css}" />
+    <link rel="stylesheet" th:href="@{/css/aos.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 
     <title>
       Investology
@@ -55,34 +50,31 @@
             <a th:href="@{/index}" class="logo m-0 float-start">Investology</a>
 
             <ul
-              class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
+                    class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
             >
               <li class="nav-item"><a class="nav-link" th:href="@{/index}">Home</a></li>
               <li class="has-children active">
                 <a th:href="@{/properties}">Properties</a>
                 <ul class="dropdown">
-                  <li><a href="#">Buy Property</a></li>
                   <li><a href="#">Sell Property</a></li>
-                  <li class="has-children">
-                    <a href="#">Dropdown</a>
-                    <ul class="dropdown">
-                      <li><a href="#">Sub Menu One</a></li>
-                      <li><a href="#">Sub Menu Two</a></li>
-                      <li><a href="#">Sub Menu Three</a></li>
-                    </ul>
-                  </li>
                 </ul>
               </li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a th:href="@{/contact}">Contact Us</a></li>
+              <li ><a href="services.html">Services</a></li>
+              <li ><a href="about.html">About</a></li>
+              <li ><a th:href="@{/contact}">Contact Us</a></li>
+              <li  sec:authorize="isAuthenticated()" th:classappend="${module == 'logout' ? 'active' : ''}"><a th:href="@{/logout}">Logout</a></li>
+
+              <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'login' ? 'active' : ''}"><a th:href="@{/login}">Login</a></li>
+
+              <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'registration' ? 'active' : ''}"><a th:href="@{/registration/}">Registration</a></li>
+
             </ul>
 
             <a
-              href="#"
-              class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
-              data-toggle="collapse"
-              data-target="#main-navbar"
+                    href="#"
+                    class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
+                    data-toggle="collapse"
+                    data-target="#main-navbar"
             >
               <span></span>
             </a>
@@ -90,6 +82,8 @@
         </div>
       </div>
     </nav>
+
+
 
     <div
       class="hero page-inner overlay"
@@ -116,16 +110,23 @@
               </ol>
             </nav>
 
+
             <div class="container">
               <div class="row justify-content-center align-items-center">
-                <div class="col-lg-9 text-center">
+                <div class="col-lg-9 text-center"
+                     th:action="@{/search}">
+
                   <form
+                          th:action="@{/search}"
+
                           method="get"
                           class="narrow-w form-search d-flex align-items-stretch mb-3"
                           data-aos="fade-up"
                           data-aos-delay="200"
                   >
+
                     <input
+                            name="keyword"
                             id="search-input"
                             type="text"
                             class="form-control px-4"
@@ -134,7 +135,9 @@
                     <button type="submit" class="btn btn-info">Search</button>
 
                   </form>
+
                 </div>
+
               </div>
             </div>
 
@@ -144,20 +147,235 @@
         </div>
 
       </div>
-
     </div>
 
 
 
 
     <div class="section">
+
       <div class="container">
         <div class="row mb-5 align-items-center">
+
+
+<!--          2nd filter-->
+          <header class="site-menu">
+
+            <style>
+
+              *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+              }
+              main{
+                width: 98%;
+                background: white;
+                margin: 60px auto;
+                font-family: sans-serif;
+              }
+              header{
+                width: 100%;
+                height: 100px;
+                border-bottom: 2px solid #e5e5e5;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              }
+              header ul li{
+                list-style: none;
+                padding: 20px;
+                margin: 10px;
+                float: left;
+                font-size: 20px;
+                border-radius: 35px;
+                /*background: red;*/
+
+              }
+              header ul li a{
+                color: inherit;
+                text-decoration: none;
+              }
+              header ul li.active{
+                background: var(--gra);
+              }
+              header ul li.active a{
+                color: white;
+                font-weight: bold;
+              }
+              .filter-condition{
+                padding: 20px;
+                height: 100px;
+                font-size: 20px;
+                font-weight: bold;
+              }
+              .filter-condition select{
+                width: 120px;
+                padding: 0 0 0 10px;
+                border: none;
+                outline: none;
+                font-weight: bold;
+                color: #005555;
+                background: transparent;
+                cursor: pointer;
+              }
+              .product-field{
+                padding: 40px 20px;
+              }
+              .product-field ul{
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+              }
+              .product-field ul li{
+                list-style: none;
+                width: 23.4%;
+                height: 400px;
+                transition: 0.5s all;
+                background: whitesmoke;
+                /*overflow: hidden;*/
+                border-radius: 20px;
+                padding: 10px;
+                margin: 200px 10px 0 10px;
+                position: relative;
+              }
+              picture{
+                background: #eee;
+                padding: 5px;
+                position: absolute;
+                right: 0;
+                bottom: 41%;
+                width: 75%;
+                height: 85%;
+                border-radius: 50px 20px 0 20px;
+                transform: skewY(40deg);
+                overflow: hidden;
+                box-shadow: 0px 1px 0px #00000020, -1px 0px 0px #ccc;
+              }
+              picture img {
+                width: 95%;
+                z-index: 1;
+                transform: skewY(-40deg);
+                padding: 25px 0 0 0;
+              }
+              .detail{
+                width: 100%;
+                height: 100%;
+              }
+              .detail .icon{
+                width: 30%;
+                height: 55%;
+                padding: 20px 5px;
+              }
+              .icon span{
+                background: #00000030;
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                padding: 0;
+                border-radius: 50%;
+                margin: 0 0 20px 5px;
+                font-size: 20px;
+                color: white;
+              }
+              .icon span:hover{
+                background: var(--gra);
+                cursor: pointer;
+              }
+              .detail > strong{
+                display: inherit;
+                margin: 20px;
+                font-size: 30px;
+                letter-spacing: 2px;
+                color: #555;
+              }
+              .detail > span{
+                display: inherit;
+                padding: 0 20px;
+                width: 80%;
+              }
+              .detail small{
+                display: inline-block;
+                padding: 8px 20px;
+                margin: 15px;
+                font-weight: bold;
+                border-radius: 6px;
+                border: 1px solid #999;
+                cursor: pointer;
+              }
+              .detail small:hover{
+                background: var(--gra);
+                color: white;
+                border-color: #005555;
+              }
+              li h4{
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                font-size: 30px;
+                color: #555;
+                text-shadow: 1px 1px 2px black;
+              }
+              .btn-info{
+                background-color: #005555;
+                color: #fff;
+              }
+            </style>
+            <div>
+              <select id="filter-cities"  class="btn btn-info" required >
+                <option value="" >Cities</option>
+                <option  value="California" >California</option>
+                <option  value="Florida" >Florida</option>
+                <option  value="Albuquerque" >Albuquerque</option>
+                <option  value="New Mexico" >New Mexico</option>
+                <option  value="Los Angeles" >Los Angeles</option>
+
+              </select>
+              <select id="filter-baths"  class="btn btn-info" required >
+                <option value="" >Baths</option>
+                <option  value="1 baths" >1 baths</option>
+                <option  value="2 baths" >2 baths</option>
+                <option  value="3 baths" >3 baths</option>
+
+
+              </select>
+              <select id="filter-beds"  class="btn btn-info" required >
+                <option value="" >Beds</option>
+                <option  value="1 beds" >1 beds</option>
+                <option  value="2 beds" >2 beds</option>
+                <option  value="3 beds" >3 beds</option>
+                <option  value="4 beds" >4 beds</option>
+
+
+
+              </select>
+            </div>
+            <form th:action="@{/search}">
+              <select id="filter" name="keyword3"  class="btn btn-info" required >
+                <option value="" >Price</option>
+                <option  value="700000" >700,000<</option>
+                <option value="1000000" >1000,000<</option>
+                <option value="200000000">1000,000></option>
+              </select>
+              <button type="submit" class="btn btn-info" id="submitb">Filter</button>
+
+
+            </form>
+          </header>
+
+
+
+
+
           <div class="col-lg-6 text-center mx-auto">
+
             <h2 class="font-weight-bold text-primary heading">
               Featured Properties
             </h2>
           </div>
+
         </div>
         <div class="section section-properties">
           <div class="container">
@@ -184,19 +402,19 @@
 <!--                            }-->
 <!--                          </style>-->
               <!--          </div>-->
-              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" th:each="properties : ${property}" id="propertiesAll" style="padding-top: 25px">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"  th:each="properties : ${property}" id="propertiesAll" style="padding-top: 25px">
                 <div class="property-item mb-30">
                   <a th:href="@{/propertySingle/{id}(id=${properties.id})}" class="img">
                     <img th:src="${properties.property_image}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
-                    <div class="price mb-2"><span th:text="${properties.currency + properties.price}"></span></div>
+                    <div class="price mb-2"><span id="min-price" data-price="" th:text="${properties.currency + properties.price}"></span></div>
                     <div>
-                  <span class="d-block mb-2 text-black-50" th:text="${properties.property_location}"
+                  <span class="d-block mb-2 text-black-50" data-category="" th:text="${properties.property_location}"
                   ></span
                   >
-                      <span class="city d-block mb-3" th:text="${properties.property_name}"></span>
+                      <span class="city d-block mb-3" id="nameT" th:text="${properties.property_name}"></span>
 
                       <div class="specs d-flex mb-4">
                     <span class="d-block d-flex align-items-center me-3">
@@ -205,7 +423,12 @@
                     </span>
                         <span class="d-block d-flex align-items-center">
                       <span class="icon-bath me-2"></span>
-                      <span class="caption" th:text="${properties.baths}"></span>
+                      <span class="caption" th:text="${properties.baths}">baths</span>
+                    </span>
+                        </span>
+                        <span class="d-block d-flex align-items-center">
+                      <span style="padding-left: 7px" class="caption" th:text="${properties.garage}"></span>
+                           <strong style="padding-left: 7px; font-size: 13px">garage</strong>
                     </span>
                       </div>
 
@@ -249,7 +472,7 @@
                   </a>
 
                   <div class="property-content">
-                    <div class="price mb-2"><span th:text="${properties.currency + properties.price}"></span></div>
+                    <div class="price mb-2" ><span th:text="${properties.currency + properties.price}"></span></div>
                     <div>
                       <span class="d-block mb-2 text-black-50" th:text="${properties.property_location}"
                         ></span
@@ -274,6 +497,7 @@
                     </div>
                   </div>
                 </div>
+
                 <!-- .item -->
 
               </div>
@@ -443,6 +667,92 @@
         );
       }
     </script>
+
+    <script>
+      document.querySelector('#filter-cities').
+      addEventListener('input',filterList)
+      function filterList(){
+        const searchInput = document.querySelector('#filter-cities');
+        const filter = searchInput.value.toLowerCase();
+        const listItems = document.querySelectorAll('#propertiesAll');
+
+        listItems.forEach((item) =>{
+
+                  let text = item.textContent;
+          if(text.toLowerCase().includes(filter.toLowerCase())){
+                    item.style.display = '';
+
+
+
+
+                  }else {
+                    item.style.display = 'none';
+                  }
+                }
+        );
+
+      }
+
+
+
+    </script>
+    <script>
+      document.querySelector('#filter-baths').
+      addEventListener('input',filterList)
+      function filterList(){
+        const searchInput = document.querySelector('#filter-baths');
+        const filter = searchInput.value.toLowerCase();
+        const listItems = document.querySelectorAll('#propertiesAll');
+
+        listItems.forEach((item) =>{
+
+                  let text = item.textContent;
+                  if(text.toLowerCase().includes(filter.toLowerCase())){
+                    item.style.display = '';
+
+
+
+
+                  }else {
+                    item.style.display = 'none';
+                  }
+                }
+        );
+
+      }
+
+
+
+    </script>
+    <script>
+      document.querySelector('#filter-beds').
+      addEventListener('input',filterList)
+      function filterList(){
+        const searchInput = document.querySelector('#filter-beds');
+        const filter = searchInput.value.toLowerCase();
+        const listItems = document.querySelectorAll('#propertiesAll');
+
+        listItems.forEach((item) =>{
+
+                  let text = item.textContent;
+                  if(text.toLowerCase().includes(filter.toLowerCase())){
+                    item.style.display = '';
+
+
+
+
+                  }else {
+                    item.style.display = 'none';
+                  }
+                }
+        );
+
+      }
+
+
+
+    </script>
+
 
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/tiny-slider.js}"></script>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+          integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+          crossorigin="anonymous"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Untree.co" />
+  <link rel="shortcut icon" href="favicon.png" />
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap5" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+  />
+
+  <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}" />
+  <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}" />
+
+  <link rel="stylesheet" th:href="@{/css/tiny-slider.css}" />
+  <link rel="stylesheet" th:href="@{/css/aos.css}" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+  <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+
+
+<div class="site-mobile-menu site-navbar-target">
+  <div class="site-mobile-menu-header">
+    <div class="site-mobile-menu-close">
+      <span class="icofont-close js-menu-toggle"></span>
+    </div>
+  </div>
+  <div class="site-mobile-menu-body"></div>
+</div>
+
+<nav class="site-nav">
+  <div class="container">
+    <div class="menu-bg-wrap">
+      <div class="site-navigation">
+        <a th:href="@{/index}" class="logo m-0 float-start">Investology</a>
+
+        <ul
+                class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
+        >
+          <li class="nav-item"><a class="nav-link" th:href="@{/index}">Home</a></li>
+          <li class="has-children active">
+            <a th:href="@{/properties}">Properties</a>
+            <ul class="dropdown">
+              <li><a href="#">Sell Property</a></li>
+            </ul>
+          </li>
+          <li ><a href="services.html">Services</a></li>
+          <li ><a href="about.html">About</a></li>
+          <li ><a th:href="@{/contact}">Contact Us</a></li>
+          <li  sec:authorize="isAuthenticated()" th:classappend="${module == 'logout' ? 'active' : ''}"><a th:href="@{/logout}">Logout</a></li>
+
+          <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'login' ? 'active' : ''}"><a th:href="@{/login}">Login</a></li>
+
+          <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'registration' ? 'active' : ''}"><a th:href="@{/registration/}">Registration</a></li>
+
+        </ul>
+
+        <a
+                href="#"
+                class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
+                data-toggle="collapse"
+                data-target="#main-navbar"
+        >
+          <span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+<div
+        class="hero page-inner overlay"
+        style="background-image: url('/images/hero_bg_1.jpg')"
+>
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-9 text-center mt-5">
+        <h1 class="heading" data-aos="fade-up">Properties</h1>
+
+        <nav
+                aria-label="breadcrumb"
+                data-aos="fade-up"
+                data-aos-delay="200"
+        >
+          <ol class="breadcrumb text-center justify-content-center">
+            <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+            <li
+                    class="breadcrumb-item active text-white-50"
+                    aria-current="page"
+            >
+              Properties
+            </li>
+          </ol>
+        </nav>
+
+        <div class="container">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center"  th:action="@{/search}"
+            >
+              <form
+
+                      method="get"
+                      class="narrow-w form-search d-flex align-items-stretch mb-3"
+                      data-aos="fade-up"
+                      data-aos-delay="200"
+              >
+                <input
+                        name="keyword"
+                        id="search-input"
+                        type="text"
+                        class="form-control px-4"
+                        placeholder="Find by ZIP code,price or City. e.g. New York"
+                />
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+<div class="section">
+  <div class="container">
+    <header class="site-menu">
+
+
+      <div>
+        <style>
+
+          *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+          }
+          main{
+            width: 98%;
+            background: white;
+            margin: 60px auto;
+            font-family: sans-serif;
+          }
+          header{
+            width: 100%;
+            height: 100px;
+            border-bottom: 2px solid #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          header ul li{
+            list-style: none;
+            padding: 20px;
+            margin: 10px;
+            float: left;
+            font-size: 20px;
+            border-radius: 35px;
+            /*background: red;*/
+
+          }
+          header ul li a{
+            color: inherit;
+            text-decoration: none;
+          }
+          header ul li.active{
+            background: var(--gra);
+          }
+          header ul li.active a{
+            color: white;
+            font-weight: bold;
+          }
+          .filter-condition{
+            padding: 20px;
+            height: 100px;
+            font-size: 20px;
+            font-weight: bold;
+          }
+          .filter-condition select{
+            width: 120px;
+            padding: 0 0 0 10px;
+            border: none;
+            outline: none;
+            font-weight: bold;
+            color: #005555;
+            background: transparent;
+            cursor: pointer;
+          }
+          .product-field{
+            padding: 40px 20px;
+          }
+          .product-field ul{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+          }
+          .product-field ul li{
+            list-style: none;
+            width: 23.4%;
+            height: 400px;
+            transition: 0.5s all;
+            background: whitesmoke;
+            /*overflow: hidden;*/
+            border-radius: 20px;
+            padding: 10px;
+            margin: 200px 10px 0 10px;
+            position: relative;
+          }
+          picture{
+            background: #eee;
+            padding: 5px;
+            position: absolute;
+            right: 0;
+            bottom: 41%;
+            width: 75%;
+            height: 85%;
+            border-radius: 50px 20px 0 20px;
+            transform: skewY(40deg);
+            overflow: hidden;
+            box-shadow: 0px 1px 0px #00000020, -1px 0px 0px #ccc;
+          }
+          picture img {
+            width: 95%;
+            z-index: 1;
+            transform: skewY(-40deg);
+            padding: 25px 0 0 0;
+          }
+          .detail{
+            width: 100%;
+            height: 100%;
+          }
+          .detail .icon{
+            width: 30%;
+            height: 55%;
+            padding: 20px 5px;
+          }
+          .icon span{
+            background: #00000030;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            padding: 0;
+            border-radius: 50%;
+            margin: 0 0 20px 5px;
+            font-size: 20px;
+            color: white;
+          }
+          .icon span:hover{
+            background: var(--gra);
+            cursor: pointer;
+          }
+          .detail > strong{
+            display: inherit;
+            margin: 20px;
+            font-size: 30px;
+            letter-spacing: 2px;
+            color: #555;
+          }
+          .detail > span{
+            display: inherit;
+            padding: 0 20px;
+            width: 80%;
+          }
+          .detail small{
+            display: inline-block;
+            padding: 8px 20px;
+            margin: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            border: 1px solid #999;
+            cursor: pointer;
+          }
+          .detail small:hover{
+            background: var(--gra);
+            color: white;
+            border-color: #005555;
+          }
+          li h4{
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            font-size: 30px;
+            color: #555;
+            text-shadow: 1px 1px 2px #fff;
+          }
+          .btn-info{
+            background-color: #005555;
+            color: #fff;
+          }
+        </style>
+      <select id="filter-cities"  class="btn btn-info" required >
+        <option value="" >Cities</option>
+        <option  value="California" >California</option>
+        <option  value="Florida" >Florida</option>
+        <option  value="Albuquerque" >Albuquerque</option>
+        <option  value="New Mexico" >New Mexico</option>
+        <option  value="Los Angeles" >Los Angeles</option>
+
+      </select>
+      <select id="filter-area"  class="btn btn-info" required >
+        <option value="" >Baths</option>
+        <option  value="1 baths" >1 baths</option>
+        <option  value="2 baths" >2 baths</option>
+        <option  value="3 baths" >3 baths</option>
+
+
+      </select>
+        <select id="filter-beds"  class="btn btn-info" required >
+          <option value="" >Beds</option>
+          <option  value="1 beds" >1 beds</option>
+          <option  value="2 beds" >2 beds</option>
+          <option  value="3 beds" >3 beds</option>
+          <option  value="4 beds" >4 beds</option>
+
+
+
+        </select>
+  </div>
+      <form th:action="@{/search}">
+        <select id="filter" name="keyword3"  class="btn btn-info" required >
+          <option value="" >Price</option>
+          <option  value="700000" >700,000<</option>
+          <option value="1000000" >1000,000<</option>
+          <option value="200000000">1000,000></option>
+        </select>
+        <button type="submit" class="btn btn-info" id="submitb">Filter</button>
+      </form>
+    </header>
+
+
+
+    <div class="row mb-5 align-items-center">
+      <div class="col-lg-6 text-center mx-auto">
+        <h2 class="font-weight-bold text-primary heading">
+          Featured Properties
+        </h2>
+      </div>
+    </div>
+    <div class="section section-properties">
+      <div class="container">
+        <div class="row">
+          <!--Google map-->
+
+          <!--          <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">-->
+          <!--            <iframe  src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed"  frameborder="0"-->
+          <!--                    style="border:0" allowfullscreen></iframe>-->
+
+          <!--                          <style>-->
+          <!--                            .map-container{-->
+          <!--                              overflow:hidden;-->
+          <!--                              padding-bottom:56.25%;-->
+          <!--                              position:relative;-->
+          <!--                              height:0;-->
+          <!--                            }-->
+          <!--                            .map-container iframe{-->
+          <!--                              left:0;-->
+          <!--                              top:0;-->
+          <!--                              height:100%;-->
+          <!--                              width:100%;-->
+          <!--                              position:absolute;-->
+          <!--                            }-->
+          <!--                          </style>-->
+          <!--          </div>-->
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" th:each="propertie : ${properties}" id="propertiesAll" style="padding-top: 25px">
+            <div class="property-item mb-30">
+              <a th:href="@{/propertySingle/{id}(id=${propertie.id})}" class="img">
+                <img th:src="${propertie.property_image}" alt="Image" class="img-fluid" />
+              </a>
+
+              <div class="property-content">
+                <div class="price mb-2"><span th:text="${propertie.currency + propertie.price}"></span></div>
+                <div>
+                  <span class="d-block mb-2 text-black-50" th:text="${propertie.property_location}"
+                  ></span
+                  >
+                  <span class="city d-block mb-3" th:text="${propertie.property_name}"></span>
+
+                  <div class="specs d-flex mb-4">
+                    <span class="d-block d-flex align-items-center me-3">
+                      <span class="icon-bed me-2"></span>
+                      <span class="caption" th:text="${propertie.beds}"></span>
+                    </span>
+                    <span id="baths" class="d-block d-flex align-items-center">
+                      <span class="icon-bath me-2"></span>
+                      <span class="caption" th:text="${propertie.baths}"></span>
+                    </span>
+                    <span class="d-block d-flex align-items-center">
+                      <span style="padding-left: 7px" class="caption" th:text="${propertie.garage}"></span>
+                           <strong style="padding-left: 7px; font-size: 13px">garage</strong>
+                    </span>
+                  </div>
+
+                  <a th:href="@{/propertySingle/{id}(id=${propertie.id})}"
+                     class="btn btn-primary py-2 px-3"
+                  >See details</a
+                  >
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <!-- .item -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- .item -->
+          </div>
+
+        </div>
+
+
+
+        <div class="row align-items-center py-5">
+          <div class="col-lg-3">Pagination (1 of 10)</div>
+          <div class="col-lg-6 text-center">
+            <div class="custom-pagination">
+              <a href="#">1</a>
+              <a href="#" class="active">2</a>
+              <a href="#">3</a>
+              <a href="#">4</a>
+              <a href="#">5</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-12">
+        <div class="property-slider-wrap">
+<!--          <div class="property-slider">-->
+<!--            <div class="property-item" th:each="properties : ${propertySingle}">-->
+<!--              <a  th:href="@{/propertySingle/{id}(id=${properties.id})}" class="img">-->
+<!--                <img th:src="${properties.property_image}" alt="Image" class="img-fluid" />-->
+<!--              </a>-->
+
+<!--              <div class="property-content">-->
+<!--                <div class="price mb-2"><span th:text="${properties.currency + properties.price}"></span></div>-->
+<!--                <div>-->
+<!--                      <span class="d-block mb-2 text-black-50" th:text="${properties.property_location}"-->
+<!--                      ></span-->
+<!--                      >-->
+<!--                  <span class="city d-block mb-3" th:text="${properties.property_name}"></span>-->
+
+<!--                  <div class="specs d-flex mb-4">-->
+<!--                        <span class="d-block d-flex align-items-center me-3">-->
+<!--                          <span class="icon-bed me-2"></span>-->
+<!--                          <span class="caption" th:text="${properties.beds}"></span>-->
+<!--                        </span>-->
+<!--                    <span class="d-block d-flex align-items-center">-->
+<!--                          <span class="icon-bath me-2"></span>-->
+<!--                          <span class="caption" th:text="${properties.baths}"></span>-->
+<!--                        </span>-->
+<!--                  </div>-->
+
+<!--                  <a th:href="@{/propertySingle/{id}(id=${properties.id})}"-->
+<!--                     class="btn btn-primary py-2 px-3"-->
+<!--                  >See details</a-->
+<!--                  >-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; .item &ndash;&gt;-->
+
+<!--          </div>-->
+
+          <div
+                  id="property-nav"
+                  class="controls"
+                  tabindex="0"
+                  aria-label="Carousel Navigation"
+          >
+                <span
+                        class="prev"
+                        data-controls="prev"
+                        aria-controls="property"
+                        tabindex="-1"
+                >Prev</span
+                >
+            <span
+                    class="next"
+                    data-controls="next"
+                    aria-controls="property"
+                    tabindex="-1"
+            >Next</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="widget">
+          <h3>Contact</h3>
+          <address>43 Raymouth Rd. Baltemoer, London 3910</address>
+          <ul class="list-unstyled links">
+            <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
+            <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
+            <li>
+              <a href="mailto:info@mydomain.com">info@mydomain.com</a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.widget -->
+      </div>
+      <!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <div class="widget">
+          <h3>Sources</h3>
+          <ul class="list-unstyled float-start links">
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Vision</a></li>
+            <li><a href="#">Mission</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy</a></li>
+          </ul>
+          <ul class="list-unstyled float-start links">
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Creative</a></li>
+          </ul>
+        </div>
+        <!-- /.widget -->
+      </div>
+      <!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <div class="widget">
+          <h3>Links</h3>
+          <ul class="list-unstyled links">
+            <li><a href="#">Our Vision</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Contact us</a></li>
+          </ul>
+
+          <ul class="list-unstyled social">
+            <li>
+              <a href="#"><span class="icon-instagram"></span></a>
+            </li>
+            <li>
+              <a href="#"><span class="icon-twitter"></span></a>
+            </li>
+            <li>
+              <a href="#"><span class="icon-facebook"></span></a>
+            </li>
+            <li>
+              <a href="#"><span class="icon-linkedin"></span></a>
+            </li>
+            <li>
+              <a href="#"><span class="icon-pinterest"></span></a>
+            </li>
+            <li>
+              <a href="#"><span class="icon-dribbble"></span></a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.widget -->
+      </div>
+      <!-- /.col-lg-4 -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row mt-5">
+      <div class="col-12 text-center">
+        <!--
+          **==========
+          NOTE:
+          Please don't remove this copyright link unless you buy the license here https://untree.co/license/
+          **==========
+        -->
+
+        <p>
+          Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          . All Rights Reserved. &mdash; Designed with love by
+          <a href="https://untree.co">Untree.co</a>
+          <!-- License information: https://untree.co/license/ -->
+        </p>
+        <div>
+          Distributed by
+          <a href="https://themewagon.com/" target="_blank">themewagon</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.site-footer -->
+
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+
+
+<script>
+  document.querySelector('#search-input').
+  addEventListener('input',filterList)
+  function filterList(){
+    const searchInput = document.querySelector('#search-input');
+    const filter = searchInput.value.toLowerCase();
+    const listItems = document.querySelectorAll('#propertiesAll');
+
+    listItems.forEach((item) =>{
+              let text = item.textContent;
+              if(text.toLowerCase().includes(filter.toLowerCase())){
+                item.style.display = '';
+              }
+              else {
+                item.style.display = 'none';
+              }
+            }
+    );
+  }
+</script>
+
+
+
+<script>
+  document.querySelector('#search-input').
+  addEventListener('input',filterList)
+  function filterList(){
+    const searchInput = document.querySelector('#search-input');
+    const filter = searchInput.value.toLowerCase();
+    const listItems = document.querySelectorAll('#propertiesAll');
+
+    listItems.forEach((item) =>{
+              let text = item.textContent;
+
+              if(text.toLowerCase().includes(filter.toLowerCase())){
+                item.style.display= '';
+              }
+              else {
+                item.style.display = 'none';
+              }
+            }
+    );
+  }
+</script>
+
+<script>
+  document.querySelector('#filter-cities').
+  addEventListener('input',filterList)
+  function filterList(){
+    const searchInput = document.querySelector('#filter-cities');
+    const filter = searchInput.value.toLowerCase();
+    const listItems = document.querySelectorAll('#propertiesAll');
+
+    listItems.forEach((item) =>{
+
+              let text = item.textContent;
+              if(text.toLowerCase().includes(filter.toLowerCase())){
+                item.style.display = '';
+
+
+
+
+              }else {
+                item.style.display = 'none';
+              }
+            }
+    );
+
+  }
+
+
+
+</script>
+
+<script>
+  document.querySelector('#filter-area').
+  addEventListener('input',filterList)
+  function filterList(){
+    const searchInput = document.querySelector('#filter-area');
+    const filter = searchInput.value.toLowerCase();
+    const listItems = document.querySelectorAll('#propertiesAll');
+
+    listItems.forEach((item) =>{
+
+              let text = item.textContent;
+              if(text.toLowerCase().includes(filter.toLowerCase())){
+                item.style.display = '';
+
+
+
+
+              }else {
+                item.style.display = 'none';
+              }
+            }
+    );
+
+  }
+
+
+
+</script>
+
+<script>
+  document.querySelector('#filter-beds').
+  addEventListener('input',filterList)
+  function filterList(){
+    const searchInput = document.querySelector('#filter-beds');
+    const filter = searchInput.value.toLowerCase();
+    const listItems = document.querySelectorAll('#propertiesAll');
+
+    listItems.forEach((item) =>{
+
+              let text = item.textContent;
+              if(text.toLowerCase().includes(filter.toLowerCase())){
+                item.style.display = '';
+
+
+
+
+              }else {
+                item.style.display = 'none';
+              }
+            }
+    );
+
+  }
+
+
+
+</script>
+
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/tiny-slider.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/counter.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+
+
+
+</body>
+</html>

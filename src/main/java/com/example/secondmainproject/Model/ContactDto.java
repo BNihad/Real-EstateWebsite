@@ -3,7 +3,7 @@ package com.example.secondmainproject.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+@Data
 public class ContactDto {
     private String name;
     private String email;

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
 public class PropertyService {
 
    private final PropertyRepository propertyRepository;
@@ -32,16 +31,29 @@ public class PropertyService {
 
         return propertyRepository.findById(id).get();
     }
+    public String find (){
+
+        return propertyRepository.toString();
+    }
 
 
 
+    public List<PropertyEntity> getAllPropertiesByName(String keyword){
 
-//    public List<PropertyEntity> getAllPropertiesByName(String property_name){
-//
-//
-//
-//        return propertyRepository.findByProperty_name(property_name);
-//    }
+        return propertyRepository.findByName(keyword);
+    }
+
+    public List<PropertyEntity> getAllPropertiesByName2(String keyword2){
+
+
+        return propertyRepository.findByName1(keyword2);
+    }
+    public List<PropertyEntity> getAllPropertiesByPrice( Integer keyword  ){
+
+        return propertyRepository.findPrice(keyword);
+    }
+
+
 
 
 

@@ -3,6 +3,7 @@ package com.example.secondmainproject.service;
 import com.example.secondmainproject.Dao.PropertyRepository.ContactRepository;
 import com.example.secondmainproject.Mapper.ContactMapper;
 import com.example.secondmainproject.Model.ContactDto;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 @Service

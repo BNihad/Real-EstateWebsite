@@ -2319,6 +2319,9 @@
 .icon-bath:before {
   content: "\f2cd";
 }
+.garage:before {
+  content: #xf5e4;
+}
 .icon-bathtub:before {
   content: "\f2cd";
 }
