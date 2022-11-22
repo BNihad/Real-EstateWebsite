@@ -1,10 +1,11 @@
 package com.example.secondmainproject.Model;
 
 
+import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-
+@Data
 public class AdminRegistrationDto {
     @NotBlank(message ="Adı daxil edin")
     private String firstName;

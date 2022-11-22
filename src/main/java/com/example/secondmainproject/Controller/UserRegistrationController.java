@@ -54,7 +54,7 @@ public class UserRegistrationController {
             }
         }
         if(bindingResult.hasErrors()){
-            return "registration";
+            return "/registration";
         }else
             userService.save(customerRegistrationDto);
         return "redirect:/registration/?success";

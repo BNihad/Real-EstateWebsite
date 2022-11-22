@@ -7,6 +7,7 @@ import com.example.secondmainproject.Model.PropertyDto;
 
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -26,17 +27,23 @@ public class PropertyService {
                 map(propertyEntity-> PropertyMapper.INSTANCE.mapToDto(propertyEntity)).toList();
     }
 
+    public void saveProperty2(PropertyDto propertyDto) throws ParseException {
+
+
+        var propertyDetails=PropertyMapper.INSTANCE.mapToEntity(propertyDto);
+        propertyRepository.save(propertyDetails);
+    }
+
 
     public PropertyEntity findById (Integer id){
 
         return propertyRepository.findById(id).get();
     }
-    public String find (){
 
-        return propertyRepository.toString();
+    public PropertyEntity findByParameter(Integer id){
+
+        return propertyRepository.findById(id).get();
     }
-
-
 
     public List<PropertyEntity> getAllPropertiesByName(String keyword){
 
@@ -51,6 +58,14 @@ public class PropertyService {
     public List<PropertyEntity> getAllPropertiesByPrice( Integer keyword  ){
 
         return propertyRepository.findPrice(keyword);
+    }
+
+    public void saveProperty(PropertyEntity propertyEntity) {
+        propertyRepository.save(propertyEntity);
+    }
+
+    public void deleteProperty(Integer id) {
+        propertyRepository.deleteById(id);
     }
 
 

@@ -58,7 +58,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                         "/static/**",
                         "/js/**"
                 ).permitAll()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin", "/admin/**", "/editProduct/{id}", "/saveProduct",
+                        "/deleteProduct/{id}", "/addproduct","/forAdmin").hasRole("ADMIN")
                 .antMatchers("/properties/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/index").permitAll()
                 .and()

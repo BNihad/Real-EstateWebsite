@@ -11,4 +11,6 @@ public interface PropertyMapper {
 
     PropertyDto mapToDto(PropertyEntity propertyEntity);
 
+    PropertyEntity mapToEntity(PropertyDto propertyDto);
+
 }
