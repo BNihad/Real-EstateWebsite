@@ -10,7 +10,9 @@
 
     <meta name="description" content=""/>
     <meta name="keywords" content="bootstrap, bootstrap5"/>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
@@ -51,12 +53,10 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/index}">Home</a></li>
                     <li class="has-children active">
                         <a th:href="@{/properties}">Properties</a>
-                        <ul class="dropdown">
-                            <li><a href="#">Sell Property</a></li>
-                        </ul>
+
                     </li>
-                    <li ><a href="services.html">Services</a></li>
-                    <li ><a href="about.html">About</a></li>
+                    <li ><a th:href="@{/services}">Services</a></li>
+                    <li ><a th:href="@{/about}">About</a></li>
                     <li ><a th:href="@{/contact}">Contact Us</a></li>
                     <li  sec:authorize="isAuthenticated()" th:classappend="${module == 'logout' ? 'active' : ''}"><a th:href="@{/logout}">Logout</a></li>
 
@@ -137,37 +137,37 @@
                         <ul class="list">
                             <li class="d-flex justify-content-between">
                                 <strong>Property ID:</strong>
-                                <span>1134</span>
+                                <span th:text="${propertySingle.property_id}"></span>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <strong>Location:</strong>
-                                <span>Chicago, IL 606543</span>
+                                <span th:text="${propertySingle.property_location}"></span>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <strong>Property Type:</strong>
-                                <span>House</span>
+                                <span th:text="${propertySingle.property_type}"></span>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <strong>Status:</strong>
-                                <span>Sale</span>
+                                <span >Sale</span>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <strong>Area:</strong>
-                                <span>340m
+                                <span th:text="${propertySingle.area}">
                           <sup>2</sup>
                         </span>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <strong>Beds:</strong>
-                                <span>4</span>
+                                <span th:text="${propertySingle.beds}"></span>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <strong>Baths:</strong>
-                                <span>2</span>
+                                <span th:text="${propertySingle.baths}"></span>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <strong>Garage:</strong>
-                                <span>1</span>
+                                <span th:text="${propertySingle.garage}"></span>
                             </li>
                         </ul>
                     </div>
@@ -180,7 +180,17 @@
                     </div>
                     <div class="amenities-list color-text-a" style="font-size: medium">
                         <ul class="list-a no-margin" style="font-size: medium">
-                            <li th:text="${propertySingle.beds}"></li>
+                            <li th:text="${amenities.parking}"></li>
+                            <li th:text="${amenities.cable_tv}"></li>
+                            <li th:text="${amenities.sun_room}"></li>
+                            <li th:text="${amenities.balcony}"></li>
+                            <li th:text="${amenities.deck}"></li>
+                            <li th:text="${amenities.outdoor_kitchen}"></li>
+                            <li th:text="${amenities.internet}"></li>
+                            <li th:text="${amenities.tennis_court}"></li>
+                            <li th:text="${amenities.concrete_flooring}"></li>
+
+
                         </ul>
                     </div>
                 </div>
@@ -193,7 +203,7 @@
 
 
                     </div>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3178.5480484912305!2d-120.49157668441921!3d37.1872102535176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb9519dfb779c6aea!2zMzfCsDExJzEzLjkiTiAxMjDCsDI5JzIxLjgiVw!5e0!3m2!1sen!2s!4v1668084032851!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe th:src="${amenities.location_map}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <style>
                         .map-container{
                             overflow:hidden;
@@ -237,7 +247,7 @@
                           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-                    <button class="sendMessageBtn js-checkAvailability stickyContactRightRail btn btn-md btn-secondary" style="margin-left: auto">
+                    <button sec:authorize="isAuthenticated()" class="sendMessageBtn js-checkAvailability stickyContactRightRail btn btn-md btn-secondary" style="margin-left: auto">
                         Buy Now
                     </button>
                     <a  th:href="${'/wishlist/add/'+ propertySingle.getId()}">
@@ -252,29 +262,29 @@
                             <div class="row">
                                 <div class="form-holder" style="margin-left: auto">
                                     <div class="form-content">
-                                        <div class="form-items">
+                                        <div class="form-items" style="padding-right: 180px">
                                             <H5>Fill in the data below.</H5>
                                             <form class="requires-validation" novalidate>
 
                                                 <div class="col-md-12">
                                                    <strong>First Name</strong>
-                                                    <input class="form-control" type="text" name="name" placeholder="Enter your first name">
+                                                    <input id="name" class="form-control" type="text" name="name" placeholder="Enter your first name">
 
                                                 </div>
 
                                                 <div class="col-md-12">
                                                     <strong>Last Name</strong>
-                                                    <input class="form-control" type="text" name="name" placeholder="Enter your last name">
+                                                    <input id="lastname" class="form-control" type="text" name="name" placeholder="Enter your last name">
                                                 </div>
 
                                                 <div class="col-md-12">
                                                     <strong>Last Name</strong>
-                                                    <input class="form-control" type="number" name="phone-number" placeholder="Enter your phone number">
+                                                    <input id="phone" class="form-control" type="number" name="phone-number" placeholder="Enter your phone number">
                                                 </div>
 
                                                 <div class="col-md-12">
                                                     <strong>Email Address</strong>
-                                                    <input class="form-control" type="email" name="email" placeholder="Enter your e-mail address" required>
+                                                    <input id="email" class="form-control" type="email" name="email" placeholder="Enter your e-mail address" required>
                                                     <div class="valid-feedback">Email field is valid!</div>
                                                     <div class="invalid-feedback">Email field cannot be blank!</div>
                                                 </div>
@@ -282,27 +292,18 @@
 
                                                 <div class="col-md-12">
                                                     <strong>Time</strong>
-                                                    <select class="form-select mt-3" required>
+                                                    <select id="time" class="form-select mt-3" required>
                                                         <option selected disabled value="">Select Time</option>
-                                                        <option value="jweb">Morning</option>
-                                                        <option value="sweb">Lunch</option>
-                                                        <option value="pmanager">Afternoon</option>
-                                                        <option value="pmanager">Evening</option>
+                                                        <option value="Morning">Morning</option>
+                                                        <option value="Lunch">Lunch</option>
+                                                        <option value="Afternoon">Afternoon</option>
+                                                        <option value="Evening">Evening</option>
                                                     </select>
                                                     <div class="valid-feedback">You selected a time!</div>
                                                     <div class="invalid-feedback">Please select a time!</div>
                                                 </div>
 
-                                                <div class="col-md-12 mt-3">
-                                                    <label class="mb-3 mr-1" for="submit" style="font-size: 18px">Schedule a showing:</label>
 
-                                                    <input type="checkbox" class="btn-check" name="person" id="person" autocomplete="off" required>
-                                                    <label style="margin-right: 5px" class="btn btn-sm btn-outline-secondary" for="person">In Person</label>
-
-                                                    <input type="checkbox" class="btn-check" name="virtual" id="virtual" autocomplete="off" required>
-                                                    <label class="btn btn-sm btn-outline-secondary" for="virtual">Virtual</label>
-
-                                                </div>
 
                                                 <div class="form-button mt-3">
                                                     <button id="submit" type="submit" class="btn btn-primary">Submit</button>
@@ -362,7 +363,7 @@
             <div class="col-lg-4">
                 <div class="widget">
                     <h3>Contact</h3>
-                    <address>43 Raymouth Rd. Baltemoer, London 3910</address>
+                    <address>43 20 Yanvar Rd. Tblisi, Baku 3910</address>
                     <ul class="list-unstyled links">
                         <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
                         <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
@@ -378,21 +379,14 @@
                 <div class="widget">
                     <h3>Sources</h3>
                     <ul class="list-unstyled float-start links">
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Vision</a></li>
-                        <li><a href="#">Mission</a></li>
-                        <li><a href="#">Terms</a></li>
-                        <li><a href="#">Privacy</a></li>
+                        <li><a th:href="@{/about}">About us</a></li>
+                        <li><a th:href="@{/services}">Services</a></li>
+                        <li><a th:href="@{/about}">Vision</a></li>
+                        <li><a th:href="@{/about}">Mission</a></li>
+                        <li><a th:href="@{/about}">Terms</a></li>
+                        <li><a th:href="@{/about}">Privacy</a></li>
                     </ul>
-                    <ul class="list-unstyled float-start links">
-                        <li><a href="#">Partners</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Creative</a></li>
-                    </ul>
+
                 </div>
                 <!-- /.widget -->
             </div>
@@ -401,9 +395,9 @@
                 <div class="widget">
                     <h3>Links</h3>
                     <ul class="list-unstyled links">
-                        <li><a href="#">Our Vision</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Contact us</a></li>
+                        <li><a th:href="@{/about}">Our Vision</a></li>
+                        <li><a th:href="@{/about}">About us</a></li>
+                        <li><a th:href="@{/contact}">Contact us</a></li>
                     </ul>
 
                     <ul class="list-unstyled social">
@@ -447,13 +441,11 @@
                     <script>
                         document.write(new Date().getFullYear());
                     </script>
-                    . All Rights Reserved. &mdash; Designed with love by
-                    <a href="https://untree.co">Untree.co</a>
-                    <!-- License information: https://untree.co/license/ -->
+                    . All Rights Reserved.
                 </p>
                 <div>
                     Distributed by
-                    <a href="https://themewagon.com/" target="_blank">themewagon</a>
+                    <a href="" target="_blank">Nihad Babazade</a>
                 </div>
             </div>
         </div>
@@ -469,6 +461,54 @@
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
+
+
+<script>
+    // alert("helloooo")
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+
+    $(document).ready(function () {
+        $('#submit').click(function () {
+            let name = $('#name').val()
+            let lastname = $('#lastname').val()
+            let phone = $('#phone').val()
+            let email = $('#email').val()
+            let date = $('#datepicker').val()
+            let time = $('#time').val()
+
+            var data = {}
+            data.name = name
+            data.lastname = lastname
+            data.phone = phone
+            data.email = email
+            data.date = date
+            data.time = time
+
+
+            console.log(data)
+            $.ajax(
+                {
+                    url: '/saveForm/',
+                    type: 'POST', // http method
+                    data: JSON.stringify(data),  // data to submit
+                    dataType: 'json',
+                    contentType: "application/json"
+
+                });
+            alert("Your Request was sent!");
+        });
+
+    })
+
+</script>
 
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/tiny-slider.js}"></script>

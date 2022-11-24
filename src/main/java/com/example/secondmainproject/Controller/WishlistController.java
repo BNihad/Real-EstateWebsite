@@ -87,14 +87,15 @@ public class WishlistController {
     }
 
     @RequestMapping(value = "clear", method = RequestMethod.GET)
-    public String clear(HttpServletRequest request) {
+    public String clear(HttpServletRequest request)   {
         HttpSession session = request.getSession();
+
         List<WishList> wishlist = (List<WishList>) session.getAttribute("wishlist");
         wishlist.clear();
-        session.setAttribute("cart", wishlist);
+        session.setAttribute("wishlist", wishlist);
         if (wishlist==null){
 
-            session.setAttribute("wishlist", null);
+            session.setAttribute("wishlist", "/");
         }
 
         return "redirect:/wishlist";
@@ -112,5 +113,6 @@ public class WishlistController {
         return "redirect:/wishlist";
 
     }
+
 
 }

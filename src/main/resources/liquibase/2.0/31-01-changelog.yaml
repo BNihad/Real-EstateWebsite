@@ -40,5 +40,8 @@ databaseChangeLog:
               - column:
                   name: concrete_flooring
                   type: varchar
+              - column:
+                  name: location_map
+                  type: varchar
 
 

@@ -1,5 +1,8 @@
 package com.example.secondmainproject.Controller;
 
+import com.example.secondmainproject.Model.ContactDto;
+import com.example.secondmainproject.Model.FormDto;
+import com.example.secondmainproject.service.FormService;
 import com.example.secondmainproject.service.UserService;
 import com.example.secondmainproject.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +11,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.NoSuchElementException;
 
 
 @Controller
 @RequestMapping
 public class PropertyController {
-    @Autowired
+     @Autowired
      private UserService userService;
+
+
+
     private final PropertyService propertyService;
 
+    @Autowired
+    private FormService formService;
 
 
 
@@ -53,6 +61,7 @@ public class PropertyController {
     public String propertySingle(@PathVariable Integer id, Model model) {
 
         model.addAttribute("propertySingle",propertyService.findById(id));
+        model.addAttribute("amenities",propertyService.findByIdAmenities(id));
 
         return "property-single";
     }
@@ -61,6 +70,14 @@ public class PropertyController {
         return "contact";
 
     }
+
+    @GetMapping("/services")
+    public String service() {
+        return "services";
+
+    }
+
+
 
     @GetMapping("/search")
     public String search (Model model, String keyword,String keyword2,Integer keyword3 ){
@@ -100,6 +117,15 @@ public class PropertyController {
         model.addAttribute("user", userService.findByEmail());
         model.addAttribute("authorities", userService.getAllRole());
         return "redirect:/login?logout";
+    }
+
+
+
+    @PostMapping("/saveForm")
+    public String saveForm(@RequestBody FormDto formDto) {
+       formService.saveForm(formDto);
+
+       return "redirect:/";
     }
 
 

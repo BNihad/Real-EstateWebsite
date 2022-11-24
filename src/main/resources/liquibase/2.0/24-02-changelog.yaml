@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: table about
+      author: Nihad
+      changes:
+        - createTable:
+            tableName: about
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar
+              - column:
+                  name: text
+                  type: varchar

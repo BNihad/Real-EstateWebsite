@@ -24,12 +24,12 @@
             rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="fonts/icomoon/style.css" />
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}"/>
+    <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}"/>
 
-    <link rel="stylesheet" href="css/tiny-slider.css" />
-    <link rel="stylesheet" href="css/aos.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" th:href="@{/css/tiny-slider.css}"/>
+    <link rel="stylesheet" th:href="@{/css/aos.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 
     <title>
         Investology
@@ -57,20 +57,17 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/index}">Home</a></li>
                     <li class="has-children active">
                         <a th:href="@{/properties}">Properties</a>
-                        <ul class="dropdown">
-                            <li><a href="#">Sell Property</a></li>
-                        </ul>
+
                     </li>
-                    <li ><a href="services.html">Services</a></li>
-                    <li ><a href="about.html">About</a></li>
+                    <li ><a th:href="@{/services}">Services</a></li>
+                    <li ><a th:href="@{/about}">About</a></li>
                     <li ><a th:href="@{/contact}">Contact Us</a></li>
                     <li  sec:authorize="isAuthenticated()" th:classappend="${module == 'logout' ? 'active' : ''}"><a th:href="@{/logout}">Logout</a></li>
 
                     <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'login' ? 'active' : ''}"><a th:href="@{/login}">Login</a></li>
 
                     <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'registration' ? 'active' : ''}"><a th:href="@{/registration/}">Registration</a></li>
-
-                    <li class="nav-item"><a class="nav-link" th:href="@{/wishlist}">My Wishlist</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/wishlist}">Wishlist</a></li>
 
                 </ul>
 
@@ -336,7 +333,7 @@
             <div class="col-lg-4">
                 <div class="widget">
                     <h3>Contact</h3>
-                    <address>43 Raymouth Rd. Baltemoer, London 3910</address>
+                    <address>43 20 Yanvar Rd. Tblisi, Baku 3910</address>
                     <ul class="list-unstyled links">
                         <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
                         <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
@@ -352,21 +349,14 @@
                 <div class="widget">
                     <h3>Sources</h3>
                     <ul class="list-unstyled float-start links">
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Vision</a></li>
-                        <li><a href="#">Mission</a></li>
-                        <li><a href="#">Terms</a></li>
-                        <li><a href="#">Privacy</a></li>
+                        <li><a th:href="@{/about}">About us</a></li>
+                        <li><a th:href="@{/services}">Services</a></li>
+                        <li><a th:href="@{/about}">Vision</a></li>
+                        <li><a th:href="@{/about}">Mission</a></li>
+                        <li><a th:href="@{/about}">Terms</a></li>
+                        <li><a th:href="@{/about}">Privacy</a></li>
                     </ul>
-                    <ul class="list-unstyled float-start links">
-                        <li><a href="#">Partners</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Creative</a></li>
-                    </ul>
+
                 </div>
                 <!-- /.widget -->
             </div>
@@ -375,9 +365,9 @@
                 <div class="widget">
                     <h3>Links</h3>
                     <ul class="list-unstyled links">
-                        <li><a href="#">Our Vision</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Contact us</a></li>
+                        <li><a th:href="@{/about}">Our Vision</a></li>
+                        <li><a th:href="@{/about}">About us</a></li>
+                        <li><a th:href="@{/contact}">Contact us</a></li>
                     </ul>
 
                     <ul class="list-unstyled social">
@@ -421,19 +411,18 @@
                     <script>
                         document.write(new Date().getFullYear());
                     </script>
-                    . All Rights Reserved. &mdash; Designed with love by
-                    <a href="https://untree.co">Untree.co</a>
-                    <!-- License information: https://untree.co/license/ -->
+                    . All Rights Reserved.
                 </p>
                 <div>
                     Distributed by
-                    <a href="https://themewagon.com/" target="_blank">themewagon</a>
+                    <a href="" target="_blank">Nihad Babazade</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- /.container -->
 </div>
+
 <!-- /.site-footer -->
 
 <!-- Preloader -->
@@ -444,12 +433,12 @@
     </div>
 </div>
 
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/tiny-slider.js"></script>
-<script src="js/aos.js"></script>
-<script src="js/navbar.js"></script>
-<script src="js/counter.js"></script>
-<script src="js/custom.js"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/tiny-slider.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/counter.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 
 </body>
 </html>

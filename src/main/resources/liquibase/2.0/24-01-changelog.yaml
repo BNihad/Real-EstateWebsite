@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: Form table
+      author: Nihad
+      changes:
+        - createTable:
+            tableName: form
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar
+              - column:
+                  name: lastname
+                  type: varchar
+              - column:
+                  name: phone
+                  type: varchar
+              - column:
+                  name: email
+                  type: varchar
+              - column:
+                  name: date
+                  type: varchar
+              - column:
+                  name: time
+                  type: varchar
