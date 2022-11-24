@@ -1,0 +1,455 @@
+<!-- /*
+* Template Name: Property
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Untree.co" />
+    <link rel="shortcut icon" href="favicon.png" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap5" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css" />
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
+
+    <link rel="stylesheet" href="css/tiny-slider.css" />
+    <link rel="stylesheet" href="css/aos.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>
+        Investology
+    </title>
+</head>
+<body>
+<div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div>
+
+<nav class="site-nav">
+    <div class="container">
+        <div class="menu-bg-wrap">
+            <div class="site-navigation">
+                <a th:href="@{/index}" class="logo m-0 float-start">Investology</a>
+
+                <ul
+                        class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
+                >
+                    <li class="nav-item"><a class="nav-link" th:href="@{/index}">Home</a></li>
+                    <li class="has-children active">
+                        <a th:href="@{/properties}">Properties</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Sell Property</a></li>
+                        </ul>
+                    </li>
+                    <li ><a href="services.html">Services</a></li>
+                    <li ><a href="about.html">About</a></li>
+                    <li ><a th:href="@{/contact}">Contact Us</a></li>
+                    <li  sec:authorize="isAuthenticated()" th:classappend="${module == 'logout' ? 'active' : ''}"><a th:href="@{/logout}">Logout</a></li>
+
+                    <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'login' ? 'active' : ''}"><a th:href="@{/login}">Login</a></li>
+
+                    <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'registration' ? 'active' : ''}"><a th:href="@{/registration/}">Registration</a></li>
+
+                    <li class="nav-item"><a class="nav-link" th:href="@{/wishlist}">My Wishlist</a></li>
+
+                </ul>
+
+                <a
+                        href="#"
+                        class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
+                        data-toggle="collapse"
+                        data-target="#main-navbar"
+                >
+                    <span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div
+        class="hero page-inner overlay"
+        style="background-image: url('images/hero_bg_1.jpg')"
+>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">My Wishlist</h1>
+
+                <nav
+                        aria-label="breadcrumb"
+                        data-aos="fade-up"
+                        data-aos-delay="200"
+                >
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li
+                                class="breadcrumb-item active text-white-50"
+                                aria-current="page"
+                        >
+                            Wishlist
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+    .cart-wrap {
+        padding: 40px 0;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .main-heading {
+        font-size: 19px;
+        margin-bottom: 20px;
+    }
+    .table-wishlist table {
+        width: 100%;
+    }
+    .table-wishlist thead {
+        border-bottom: 1px solid #e5e5e5;
+        margin-bottom: 5px;
+    }
+    .table-wishlist thead tr th {
+        padding: 8px 0 18px;
+        color: #484848;
+        font-size: 15px;
+        font-weight: 400;
+    }
+    .table-wishlist tr td {
+        padding: 25px 0;
+        vertical-align: middle;
+    }
+    .table-wishlist tr td .img-product {
+        width: 72px;
+        float: left;
+        margin-left: 8px;
+        margin-right: 31px;
+        line-height: 63px;
+    }
+    .table-wishlist tr td .img-product img {
+        width: 100%;
+    }
+    .table-wishlist tr td .name-product {
+        font-size: 15px;
+        color: #484848;
+        padding-top: 8px;
+        line-height: 24px;
+        width: 50%;
+    }
+    .table-wishlist tr td.price {
+        font-weight: 600;
+    }
+    .table-wishlist tr td .quanlity {
+        position: relative;
+    }
+
+    .total {
+        font-size: 24px;
+        font-weight: 600;
+        color: #8660e9;
+    }
+    .display-flex {
+        display: flex;
+    }
+    .align-center {
+        align-items: center;
+    }
+    .round-black-btn {
+        border-radius: 25px;
+        background: #212529;
+        color: #fff;
+        padding: 5px 20px;
+        display: inline-block;
+        border: solid 2px #212529;
+        transition: all 0.5s ease-in-out 0s;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .round-black-btn:hover,
+    .round-black-btn:focus {
+        background: transparent;
+        color: #212529;
+        text-decoration: none;
+    }
+    .mb-10 {
+        margin-bottom: 10px !important;
+    }
+    .mt-30 {
+        margin-top: 30px !important;
+    }
+    .d-block {
+        display: block;
+    }
+    .custom-form label {
+        font-size: 14px;
+        line-height: 14px;
+    }
+    .pretty.p-default {
+        margin-bottom: 15px;
+    }
+    .pretty input:checked~.state.p-primary-o label:before,
+    .pretty.p-toggle .state.p-primary-o label:before {
+        border-color: #8660e9;
+    }
+    .pretty.p-default:not(.p-fill) input:checked~.state.p-primary-o label:after {
+        background-color: #8660e9 !important;
+    }
+    .main-heading.border-b {
+        border-bottom: solid 1px #ededed;
+        padding-bottom: 15px;
+        margin-bottom: 20px !important;
+    }
+    .custom-form .pretty .state label {
+        padding-left: 6px;
+    }
+    .custom-form .pretty .state label:before {
+        top: 1px;
+    }
+    .custom-form .pretty .state label:after {
+        top: 1px;
+    }
+    .custom-form .form-control {
+        font-size: 14px;
+        height: 38px;
+    }
+    .custom-form .form-control:focus {
+        box-shadow: none;
+    }
+    .custom-form textarea.form-control {
+        height: auto;
+    }
+    .mt-40 {
+        margin-top: 40px !important;
+    }
+    .in-stock-box {
+        background: #129110;
+        font-size: 12px;
+        text-align: center;
+        border-radius: 25px;
+        padding: 4px 15px;
+        display: inline-block;
+        color: #fff;
+    }
+    .trash-icon {
+        font-size: 20px;
+        color: #212529;
+    }
+</style>
+
+
+<form method="post" th:action="${'/wishlist/update'}">
+
+<div class="cart-wrap" >
+    <div style="padding-left: 75%" class="justify-content-center">
+        <a th:href="@{'wishlist/clear'}" class="btn btn-danger justify-content-center">Remove all</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-heading mb-10">My wishlist</div>
+
+                <div class="table-wishlist" th:each="item:${session.wishlist}">
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th width="45%">Property Information</th>
+
+                            <th width="15%">Property Price</th>
+                            <th width="15%">Available Status</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="45%">
+                                <div class="display-flex align-center">
+                                    <div class="img-product">
+                                        <a th:href="@{/propertySingle/{id}(id=${item.getPropertyEntity().id})}" class="img">
+                                        <img  th:src="${item.getPropertyEntity().getProperty_image()}"  class="mCS_img_loaded">
+                                        </a>
+                                    </div>
+                                    <div class="name-product" th:text="${item.getPropertyEntity().getProperty_name()}">
+
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td width="15%" class="price" th:text="${item.getPropertyEntity().getPrice()+item.getPropertyEntity().getCurrency()}"></td>
+                            <td width="15%"><span class="in-stock-box">Available</span></td>
+                            <td width="15%" style="padding-right: 10px"><a type="submit"  class="round-black-btn small-btn"  th:href="@{/propertySingle/{id}(id=${item.getPropertyEntity().id})}"> View Details</a></td>
+                            <td width="10%" class="text-center"><a class="round-black-btn small-btn" th:href="${'wishlist/remove/'+ item.getPropertyEntity().getId()}">remove</a></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</form>
+
+
+
+
+
+
+
+
+<!------------------------------FOOTER--------------------------------------->
+<div class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="widget">
+                    <h3>Contact</h3>
+                    <address>43 Raymouth Rd. Baltemoer, London 3910</address>
+                    <ul class="list-unstyled links">
+                        <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
+                        <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
+                        <li>
+                            <a href="mailto:info@mydomain.com">info@mydomain.com</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.widget -->
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <div class="widget">
+                    <h3>Sources</h3>
+                    <ul class="list-unstyled float-start links">
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Vision</a></li>
+                        <li><a href="#">Mission</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Privacy</a></li>
+                    </ul>
+                    <ul class="list-unstyled float-start links">
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Creative</a></li>
+                    </ul>
+                </div>
+                <!-- /.widget -->
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <div class="widget">
+                    <h3>Links</h3>
+                    <ul class="list-unstyled links">
+                        <li><a href="#">Our Vision</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Contact us</a></li>
+                    </ul>
+
+                    <ul class="list-unstyled social">
+                        <li>
+                            <a href="#"><span class="icon-instagram"></span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="icon-twitter"></span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="icon-facebook"></span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="icon-linkedin"></span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="icon-pinterest"></span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="icon-dribbble"></span></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.widget -->
+            </div>
+            <!-- /.col-lg-4 -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <!--
+                  **==========
+                  NOTE:
+                  Please don't remove this copyright link unless you buy the license here https://untree.co/license/
+                  **==========
+                -->
+
+                <p>
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    . All Rights Reserved. &mdash; Designed with love by
+                    <a href="https://untree.co">Untree.co</a>
+                    <!-- License information: https://untree.co/license/ -->
+                </p>
+                <div>
+                    Distributed by
+                    <a href="https://themewagon.com/" target="_blank">themewagon</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.site-footer -->
+
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/tiny-slider.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/counter.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>

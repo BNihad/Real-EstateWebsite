@@ -20,6 +20,10 @@ public class PropertyController {
      private UserService userService;
     private final PropertyService propertyService;
 
+
+
+
+
     public PropertyController(PropertyService propertyService) {
         this.propertyService = propertyService;
     }
@@ -97,5 +101,8 @@ public class PropertyController {
         model.addAttribute("authorities", userService.getAllRole());
         return "redirect:/login?logout";
     }
+
+
+
 
 }

@@ -63,6 +63,7 @@
                     <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'login' ? 'active' : ''}"><a th:href="@{/login}">Login</a></li>
 
                     <li  sec:authorize="!isAuthenticated()" th:classappend="${module == 'registration' ? 'active' : ''}"><a th:href="@{/registration/}">Registration</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/wishlist}">Wishlist</a></li>
 
                 </ul>
 
@@ -239,8 +240,11 @@
                     <button class="sendMessageBtn js-checkAvailability stickyContactRightRail btn btn-md btn-secondary" style="margin-left: auto">
                         Buy Now
                     </button>
-
-
+                    <a  th:href="${'/wishlist/add/'+ propertySingle.getId()}">
+                    <button class="sendMessageBtn js-checkAvailability stickyContactRightRail btn btn-md btn-secondary" style="margin-left: auto">
+                        Add To Wishlist
+                    </button>
+                    </a>
                     <aside id="contactLead" class="mortar-wrapper rightRailScheduleTourContactSection"
                            style="position: absolute;padding-top: 45px">
                         <h2 style="padding-bottom: 15px" class="scheduleTourContactTitle">Contact This Property</h2>
