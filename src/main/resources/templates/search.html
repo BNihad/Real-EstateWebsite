@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
@@ -421,6 +422,10 @@
                      class="btn btn-primary py-2 px-3"
                   >See details</a
                   >
+                  <a  style="color: #0a3139;font-size: 27px;padding-top: 15px" th:href="${'/wishlist/add/'+ propertie.getId()}"
+                      class="fa fa-heart"
+                  ></a
+                  >
                 </div>
               </div>
             </div>
@@ -462,18 +467,7 @@
 
 
 
-        <div class="row align-items-center py-5">
-          <div class="col-lg-3">Pagination (1 of 10)</div>
-          <div class="col-lg-6 text-center">
-            <div class="custom-pagination">
-              <a href="#">1</a>
-              <a href="#" class="active">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
 

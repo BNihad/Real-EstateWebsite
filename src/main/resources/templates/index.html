@@ -23,6 +23,7 @@
       href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}" />
     <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}" />
@@ -225,6 +226,10 @@
                         class="btn btn-primary py-2 px-3"
                         th:href="@{/propertySingle/{id}(id=${properties.id})}"
                         >See details</a
+                      >
+                      <a  style="color: #0a3139;font-size: 27px;padding-top: 15px" th:href="${'/wishlist/add/'+ properties.getId()}"
+                          class="fa fa-heart"
+                      ></a
                       >
                     </div>
                   </div>
